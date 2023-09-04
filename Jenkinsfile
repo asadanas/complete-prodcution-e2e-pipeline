@@ -12,11 +12,19 @@ pipeline {
                 cleanWs()
             }
         }
-   
+  
         stage ("Checkout from SCM"){
             steps {
-		git branch: 'main', url: 'https://github.com/asadanas/complete-prodcution-e2e-pipeline.git'
+                git branch: 'main', 'github', url: 'https://github.com/asadanas/complete-prodcution-e2e-pipeline.git'
             }
+        }
+
+        stage ("Build Application"){
+            sh "mvn clean package"
+        }
+        
+        stage ("Test Application"){
+            sh "mvn test"
         }
     }
 }
